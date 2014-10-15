@@ -58,6 +58,9 @@ intCSVRowCounter = 0
 %For each file in FileList, Do these:
 for intCurrentSubject = 1 : intSubjectCount
    
+    %Initialize array to empty after each export.
+    arrayCSVOutput = [];
+    
 	%List of subjects name read in a txt file
 	fid=fopen(structFileList(1).name, 'r')
     % Line Loop, through the entire task.
@@ -103,9 +106,13 @@ for intCurrentSubject = 1 : intSubjectCount
     
     [strFilePath,strFileName,strFileExt] = fileparts(structFileList(1).name);
     
-    %Write this subject:
-    xlswrite(strFileName,arrayCSVOutput)
- 
+    %Only output CSV if the file is correct
+    if ~isempty(arrayCSVOutput)
+        %Write this subject:
+        xlswrite(strFileName,arrayCSVOutput)
+    else
+        disp('No Valid Data Found to be Exported.')
+    end
 end
 
 
