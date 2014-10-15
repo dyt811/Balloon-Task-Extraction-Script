@@ -39,7 +39,7 @@ structFileList = dir('BART-Recode*.txt');
     %MakeChoice.RT	
     listKeywords{5} = 'MakeChoice.RT';
     %MakeCHoice.RESP
-    listKeywords{6} = 'MakeCHoice.RESP';
+    listKeywords{6} = 'MakeChoice.RESP';
     %.Key1
     listKeywords{7} = '.Key1';
     %Inflation Number
