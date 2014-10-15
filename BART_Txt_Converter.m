@@ -53,21 +53,25 @@ structFileList = dir('BART-Recode*.txt');
 
 %Find number of subjects that I will have to loop through
 intSubjectCount = size(structFileList, 1);
-intCSVRowCounter = 0
+
 % File Loop in folder that fulfill the criteria
 %For each file in FileList, Do these:
 for intCurrentSubject = 1 : intSubjectCount
    
-    %Initialize array to empty after each export.
-    arrayCSVOutput = [];
     
 	%List of subjects name read in a txt file
-	fid=fopen(structFileList(1).name, 'r')
+	fid = fopen(structFileList(intCurrentSubject).name, 'r');
     % Line Loop, through the entire task.
     % Doe an end of file check first. 
     
-    %Initialize LineNumber
-    intLineNumber = 0
+    %Initialize parameters after each new subject acquisition. 
+    intLineNumber = 0;
+    %Initialize array to empty after each export.
+    arrayCSVOutput = [];
+    %Initialize CSV row number. 
+    intCSVRowCounter = 0;
+    
+    
     while ~feof(fid)
         
         %Increase Line Count
@@ -104,7 +108,7 @@ for intCurrentSubject = 1 : intSubjectCount
         end
     end
     
-    [strFilePath,strFileName,strFileExt] = fileparts(structFileList(1).name);
+    [strFilePath,strFileName,strFileExt] = fileparts(structFileList(intCurrentSubject).name);
     
     %Only output CSV if the file is correct
     if ~isempty(arrayCSVOutput)
