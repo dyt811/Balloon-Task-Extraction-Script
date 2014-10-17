@@ -8,7 +8,7 @@ indexFailedCase = 0;
 failedFolder = [];
 
 %Add dependencies of the Mat Lab Functional Library.
-addpath([pwd,'/FunLib']);
+%addpath([pwd,'/FunLib']);
 
 %Enter here the working directory (that contains all script files)
 strDataDir = Function_GetFolder('Select Your Default Data Directory','C:\Github\Balloon-Task-Extraction-Script');
@@ -21,7 +21,7 @@ cd (strDataDir);
 strScriptDir = Function_GetFolder('Select Your Default Script Direcotry',fileparts(mfilename('fullpath')));
 
 %strScriptDir = mfilename('fullpath');
-addpath(strScriptDir);
+%addpath(strScriptDir);
 
 %Store list of files:
 structFileList = dir('BART-Recode*.txt');
