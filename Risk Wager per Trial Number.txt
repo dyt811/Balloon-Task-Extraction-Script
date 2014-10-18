@@ -1,0 +1,26 @@
+
+Wagers(1) = 0
+Wagers(2) = 0.05
+Wagers(3) = 0.15
+Wagers(4) = 0.25
+Wagers(5) = 0.55
+Wagers(6) = 0.95
+Wagers(7) = 1.45
+Wagers(8) = 2.05
+Wagers(9) = 2.75
+Wagers(10) = 3.45
+Wagers(11) = 4.25
+Wagers(12) = 5.15
+
+ProbExplode(1) = 0
+ProbExplode(2) = 2.1
+ProbExplode(3) = 4.2
+ProbExplode(4) = 6.3
+ProbExplode(5) = 14.6
+ProbExplode(6) = 23.9
+ProbExplode(7) = 31.3
+ProbExplode(8) = 43.8
+ProbExplode(9) = 56.3
+ProbExplode(10) = 68.8
+ProbExplode(11) = 79.2
+ProbExplode(12) = 89.6

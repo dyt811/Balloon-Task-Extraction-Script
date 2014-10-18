@@ -8,7 +8,8 @@ indexFailedCase = 0;
 failedFolder = [];
 
 %Add dependencies of the Mat Lab Functional Library.
-%addpath([pwd,'/FunLib']);
+%addpath([fileparts(mfilename('fullpath')),'\FunLib']);
+%addpath(pwd,'\FunLib']);
 
 %Enter here the working directory (that contains all script files)
 strDataDir = Function_GetFolder('Select Your Default Data Directory','C:\Github\Balloon-Task-Extraction-Script');
@@ -18,7 +19,7 @@ cd (strDataDir);
 
 %Enter the script directory by automatically defaulting to the current
 %folder the script resides. 
-strScriptDir = Function_GetFolder('Select Your Default Script Direcotry',fileparts(mfilename('fullpath')));
+%strScriptDir = Function_GetFolder('Select Your Default Script Direcotry',fileparts(mfilename('fullpath')));
 
 %strScriptDir = mfilename('fullpath');
 %addpath(strScriptDir);
@@ -28,28 +29,28 @@ structFileList = dir('BART-Recode*.txt');
 
 
 %Check if this line contain: 
-    %RTTime.
-    listKeywords{1} = 'RTTime';
+    %RT / RTTime
+    listKeywords{1} = '.RT';
     %OnsetTime.	
-    listKeywords{2} = 'OnsetTime';
-    %BalloonVertSize:
-    listKeywords{3} = 'BalloonVertSize';
-    %BalloonHorizSize:
-    listKeywords{4} = 'BalloonHorizSize';
+    listKeywords{2} = '.OnsetTime';
+    %ROJitter
+    listKeywords{3} = 'ROJitterDur';
+    %JitterDuratino
+    listKeywords{4} = 'JitterDuration';
     %MakeChoice.RT	
-    listKeywords{5} = 'MakeChoice.RT';
+    listKeywords{5} = 'CurrentWager';
     %MakeCHoice.RESP
     listKeywords{6} = 'MakeChoice.RESP';
-    %.Key1
-    listKeywords{7} = '.Key1';
+    %TotalRewardAttrib
+    listKeywords{7} = 'TotRewardAttrib';
     %Inflation Number
-    listKeywords{8} = 'Inflation Number';
+    listKeywords{8} = 'InflationNumber';
     %BalloonNumber
     listKeywords{9} = 'BalloonNumber';
-    %newBalloonHorizoSize
-    listKeywords{10} = 'newBalloonHorizoSize';
-    %newBalloonVertSize
-    listKeywords{11} = 'newBalloonVertSize';
+    %CurrentWager
+    listKeywords{10} = 'Outcome';
+    %newCurrentWager
+    %listKeywords{11} = '';
 
 %Find number of subjects that I will have to loop through
 intSubjectCount = size(structFileList, 1);
@@ -90,19 +91,49 @@ for intCurrentSubject = 1 : intSubjectCount
                 
                 %Read file and use : as delimiter
                 cellRawOutput = textscan(strCurrentLine,'%s', 'delimiter', ':');
+                %The output may have TWO or THREE cells. 
                 
-                %String One use : as delimiter
+                %TWO CELLS SCENERIO
+                %FIRST Cell being the CONTEXT.
+                %SECOND Cell benig the MEASUREMENT.
+                
+                %THREE CELLS SCENERIO
+                %FIRST Cell being the CONTEXT.
+                %SECOND Cell benig the TYPE of AMOUNT. %Second Part is WAGE?TOTAL?
+                %THIRD Cell being the AMOUNT.  %Third Part is the actual amount. 
+                                
+                %Take FIRST CELL output and further process it with the "."delimiter
                 cellStringOutput = textscan(cellRawOutput{1,1}{1},'%s', 'delimiter', '.');
+                %This may results in multiple cells. 
+                %FIRST CELL: the CONTEX
+                %TYPE of MEASUREMENT at the CONTEX
                 
                 %Write to matrix
+                
+                %OUTPUT1: Line number. 
                 arrayCSVOutput{intCSVRowCounter,1} = intLineNumber;
+                
+                %OUTPUT2: context
                 arrayCSVOutput{intCSVRowCounter,2} = cellStringOutput{1,1}{1};
-                if size(cellStringOutput{1,1},1) == 2 
-                    arrayCSVOutput{intCSVRowCounter,3} = cellStringOutput{1,1}{2};
+                
+                %OUTPUT3: measurement type                
+                %ONE : , ONE .
+                if size(cellRawOutput{1},1) == 2 && size(cellStringOutput{1},1) == 2 
+                    %First string is the CONTEX, output to Column 3.
+                    arrayCSVOutput{intCSVRowCounter,3} = cellStringOutput{1}{2};
+                    arrayCSVOutput{intCSVRowCounter,4} = cellRawOutput{1}{2};
+                %ONE :, NO .
+                elseif size(cellRawOutput{1},1) == 2 && size(cellStringOutput{1},1) == 1 
+                    arrayCSVOutput{intCSVRowCounter,3} = [];
+                    arrayCSVOutput{intCSVRowCounter,4} = cellRawOutput{1}{2};
+                %TWO :, ONE . 
+                elseif size(cellRawOutput{1},1) == 3 && size(cellStringOutput{1},1) == 1                                         
+                    arrayCSVOutput{intCSVRowCounter,3} = cellRawOutput{1}{2};
+                    arrayCSVOutput{intCSVRowCounter,4} = cellRawOutput{1}{3};                                        
                 else
-                    arrayCSVOutput{intCSVRowCounter,3} = 'unknown';
+                    warndlg('Unhandled Branching Conditions Cases!')
                 end             
-                arrayCSVOutput{intCSVRowCounter,4} = cellRawOutput{1,1}{2};
+                
                 
             end
         end
@@ -110,9 +141,14 @@ for intCurrentSubject = 1 : intSubjectCount
     
     [strFilePath,strFileName,strFileExt] = fileparts(structFileList(intCurrentSubject).name);
     
+    %Check for file existence, delete if needed. 
+    if exist([strFileName,'.xls'],'file') == 2
+        delete([strFileName,'.xls'])
+    end
+    
     %Only output CSV if the file is correct
     if ~isempty(arrayCSVOutput)
-        %Write this subject:
+        %Write this subject:        
         xlswrite(strFileName,arrayCSVOutput)
     else
         disp('No Valid Data Found to be Exported.')
