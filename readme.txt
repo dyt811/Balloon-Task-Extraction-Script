@@ -3,25 +3,27 @@ MATLAB Compiler
 1. Prerequisites for Deployment 
 
 . Verify the MATLAB Compiler Runtime (MCR) is installed and ensure you    
-  have installed version 7.17 (R2012a).   
+  have installed version 8.3 (R2014a).   
 
-. If the MCR is not installed, do following:
+. If the MCR is not installed, do the following:
   (1) enter
   
       >>mcrinstaller
       
-      at MATLAB prompt. This MCR Installer command displays the 
+      at MATLAB prompt. The MCRINSTALLER command displays the 
       location of the MCR Installer.
 
   (2) run the MCR Installer.
 
-Or download Windows 64bit version of MCR from the MathWorks website:
+Or download the Windows 32-bit version of the MCR for R2014a 
+from the MathWorks Web site by navigating to
 
-   http://www.mathworks.com/products/compiler/
+   http://www.mathworks.com/products/compiler/mcr/index.html
    
    
 For more information about the MCR and the MCR Installer, see 
-“Working With the MCR” in the MATLAB Compiler User’s Guide.    
+Distribution to End Users in the MATLAB Compiler documentation  
+in the MathWorks Documentation Center.    
 
 
 NOTE: You will need administrator rights to run MCRInstaller. 
@@ -31,17 +33,20 @@ NOTE: You will need administrator rights to run MCRInstaller.
 
 Files to package for Standalone 
 ================================
--Bart_Txt_Converter.exe
+-BART_Txt_Converter.exe
 -MCRInstaller.exe 
-   -include when building component by clicking "Add MCR" link 
-    in deploytool
+   -if end users are unable to download the MCR using the above  
+    link, include it when building your component by clicking 
+    the "Add MCR" link in the Deployment Tool
 -This readme file 
 
 3. Definitions
 
 For information on deployment terminology, go to 
-http://www.mathworks.com/help. Select your product and see 
-the Glossary in the User’s Guide.
+http://www.mathworks.com/help. Select MATLAB Compiler >   
+Getting Started > About Application Deployment > 
+Application Deployment Terms in the MathWorks Documentation 
+Center.
 
 
 
