@@ -32,9 +32,9 @@ structFileList = dir('BART-Recode*.txt');
 %eveyrthing. More efficient implementation would use TREE branching, but
 %sigh, not enough time. 
     %RT / RTTime
-    listKeywords{1} = '.RT';
+    listKeywords{1} = 'MakeChoice.RT';
     %OnsetTime.	
-    listKeywords{2} = '.OnsetTime';
+    listKeywords{2} = 'FixationScreen.OnsetTime';
     %ROJitter
     listKeywords{3} = 'ROJitterDur';
     %JitterDuratino
@@ -52,9 +52,9 @@ structFileList = dir('BART-Recode*.txt');
     %CurrentWager
     listKeywords{10} = 'Outcome';
     %newCurrentWager
-    listKeywords{11} = '.OffsetTime';
+    listKeywords{11} = 'FixationScreen.OffsetTime';
     
-    listKeywords{12} = 'MakeChoice.RTTime';
+    listKeywords{12} = 'ROJitter.Duration';
     
     listKeywords{13} = 'FeedbackWait.OnsetTime';
     listKeywords{14} = 'FeedbackWait.OffsetTime';
@@ -78,11 +78,7 @@ structFileList = dir('BART-Recode*.txt');
     
     listKeywords{28} = 'ROJitter.OnsetTime';
     listKeywords{29} = 'ROJitter.OffsetTime';
-    listKeywords{30} = 'ROJitter.Duration';
-    
-    listKeywords{31} = 'FixationScreen.OnsetTime';
-	listKeywords{32} = 'FixationScreen.OffsetTime';
-  
+
 
 %Find number of subjects that I will have to loop through
 intSubjectCount = size(structFileList, 1);
