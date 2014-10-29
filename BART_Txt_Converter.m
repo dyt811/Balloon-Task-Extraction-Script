@@ -28,7 +28,9 @@ cd (strDataDir);
 structFileList = dir('BART-Recode*.txt');
 
 
-%Check if this line contain: 
+%Check if this line contain:  (order does not matter, it will check
+%eveyrthing. More efficient implementation would use TREE branching, but
+%sigh, not enough time. 
     %RT / RTTime
     listKeywords{1} = '.RT';
     %OnsetTime.	
@@ -50,7 +52,37 @@ structFileList = dir('BART-Recode*.txt');
     %CurrentWager
     listKeywords{10} = 'Outcome';
     %newCurrentWager
-    %listKeywords{11} = '';
+    listKeywords{11} = '.OffsetTime';
+    
+    listKeywords{12} = 'MakeChoice.RTTime';
+    
+    listKeywords{13} = 'FeedbackWait.OnsetTime';
+    listKeywords{14} = 'FeedbackWait.OffsetTime';
+    listKeywords{15} = 'FeedbackWait.Duration';
+    
+    listKeywords{16} = 'FeedbackWin.OnsetTime';
+    listKeywords{17} = 'FeedbackWin.Offset';
+    listKeywords{18} = 'FeedbackWin.Duration';
+    
+    listKeywords{19} = 'FeedbackExplode.OnsetTime';
+	listKeywords{20} = 'FeedbackExplode.Offset';
+	listKeywords{21} = 'FeedbackExplode.Duration';
+    
+    listKeywords{22} = 'FeedbackLose.OnsetTime';
+	listKeywords{23} = 'FeedbackLose.Offset';
+	listKeywords{24} = 'FeedbackLose.Duration';
+    
+    listKeywords{25} = 'ITI.OnsetTime';
+    listKeywords{26} = 'ITI.OffsetTime';
+    listKeywords{27} = 'ITI.Duration';
+    
+    listKeywords{28} = 'ROJitter.OnsetTime';
+    listKeywords{29} = 'ROJitter.OffsetTime';
+    listKeywords{30} = 'ROJitter.Duration';
+    
+    listKeywords{31} = 'FixationScreen.OnsetTime';
+	listKeywords{32} = 'FixationScreen.OffsetTime';
+  
 
 %Find number of subjects that I will have to loop through
 intSubjectCount = size(structFileList, 1);
@@ -72,7 +104,7 @@ for intCurrentSubject = 1 : intSubjectCount
     %Initialize CSV row number. 
     intCSVRowCounter = 0;
     
-    
+    %While not at the end of the file
     while ~feof(fid)
         
         %Increase Line Count
@@ -151,7 +183,7 @@ for intCurrentSubject = 1 : intSubjectCount
         %Write this subject:        
         xlswrite(strFileName,arrayCSVOutput)
     else
-        disp('No Valid Data Found to be Exported.')
+        disp('No Valid Data Found to be Exported. The input file is accepted but does not contain data that matched extraction criteria.')
     end
 end
 
