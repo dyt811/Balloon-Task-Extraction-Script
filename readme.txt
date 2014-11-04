@@ -15,7 +15,7 @@ MATLAB Compiler
 
   (2) run the MCR Installer.
 
-Or download the Windows 32-bit version of the MCR for R2014a 
+Or download the Windows 64-bit version of the MCR for R2014a 
 from the MathWorks Web site by navigating to
 
    http://www.mathworks.com/products/compiler/mcr/index.html
